@@ -48,3 +48,6 @@
 .translate-middle {
     transform: translate(-15%, -12%) !important;
 }
+.translate-middle-connect {
+    transform: translate(-50%, 0%) !important;
+}

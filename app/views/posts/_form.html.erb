@@ -10,18 +10,29 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="card">
+    <h5 class="card-header"><i class="bi bi-person-circle"></i>&nbsp;You</h5>
+    <div class="card-body">
+      <h5 class="card-title">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Title</span>
+          <%= form.text_field :title, class: "form-control", placeholder: "Enter title" %>
+        </div>
+      </h5>
+      <p class="card-text">
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="basic-addon1">Content</span>
+          <%= form.text_area :content, class:"form-control" %>
+        </div>  
+      </p>
+      <div>
+        <%= form.submit(post.persisted? ? "Update Post" : "Create Post", class: "btn btn-success") %>
+      </div>
+    </div>
   </div>
+  
 
-  <div>
-    <%= form.label :content, style: "display: block" %>
-    <%= form.text_area :content %>
-  </div>
 
-  <div>
-    <%= form.submit %>
-  </div>
+
+  
 <% end %>
