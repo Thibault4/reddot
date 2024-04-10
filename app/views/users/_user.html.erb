@@ -1,22 +1,13 @@
-<div id="<%= dom_id user %>">
-  <p>
-    <strong>Username:</strong>
+
+<div class="card" id="<%= dom_id user %>">
+  <h5 class="card-header">
+    <%= link_to user, class: "btn btn-outline-primary right" do %>
+      <i class="bi bi-pencil"></i>
+    <% end %>
     <%= user.username %>
-  </p>
-
-  <p>
-    <strong>Name:</strong>
-    <%= user.name %>
-  </p>
-
-  <p>
-    <strong>Password:</strong>
-    <%= user.password %>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= user.email %>
-  </p>
-
+  </h5>
+  <div class="card-body">
+    <p class="card-text"><%= user.name %></p>
+    <p class="card-text"><%= user.email %></p>
+  </div>
 </div>
