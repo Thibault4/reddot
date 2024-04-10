@@ -26,8 +26,16 @@
     z-index:10000;
 }
 .offcanvas-header{
-    margin-top:12%
+    margin-top:14%
 }
-.container{
-    border:5px solid black 
+.offcanvas{
+    --bs-offcanvas-width: 300px;
+}
+@media (min-width: 1400px){
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1140px;
+    }
+    #posts-content{
+        margin-left:5%;
+    }
 }
