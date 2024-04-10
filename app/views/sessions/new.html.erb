@@ -1,0 +1,19 @@
+<h1>Connexion</h1>
+
+<%= form_with(url: sessions_path, method: "post") do |form| %>
+  <div>
+    <%= form.label :email, style: "display: block" %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :password, style: "display: block" %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div>
+    <%= form.submit "Se connecter" %>
+  </div>
+<% end %>
+
+<p>Pas encore de compte ? <%= link_to "Créer un compte", new_registration_path %></p>
