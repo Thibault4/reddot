@@ -1,13 +1,15 @@
 <div class="card" id="<%= dom_id post %>">
-  <h5 class="card-header"><i class="bi bi-person-circle"></i>&nbsp;<%= User.find(post.user_id).username %><span class="text-muted" style="--bs-text-opacity: .5;">&nbsp;•&nbsp;<%= time_ago_in_words(Post.find(post.user_id).created_at) %> ago</span></h5>
+  <h5 class="card-header"><i class="bi bi-person-circle"></i>&nbsp;<%= User.find(post.user_id).username %><span class="text-muted" style="--bs-text-opacity: .5;">&nbsp;•&nbsp;<%= time_ago_in_words(Post.find(post.id).created_at).gsub('about ', '') %> ago</span></h5>
   <div class="card-body">
     <h5 class="card-title"><%= post.title %></h5>
     <p class="card-text"><%= post.content %></p>
-    <%= link_to post, class: "btn btn-outline-primary" do %>
-      <i class="bi bi-eye-fill"></i>
-    <% end %>
-    <%= link_to new_post_comment_path(post), class: "btn btn-outline-primary" do %>
-      <i class="bi bi-chat-dots"></i>
+    <% if !@show_comments %>
+      <%= link_to post, class: "btn btn-outline-primary" do %>
+        <i class="bi bi-eye-fill"></i>
+      <% end %>
+      <%= link_to new_post_comment_path(post), class: "btn btn-outline-primary" do %>
+        <i class="bi bi-chat-dots"></i>
+      <% end %>
     <% end %>
     <div class="btn-group" role="group" aria-label="Basic outlined example">
       <button type="button" class="btn btn-outline-success">
@@ -19,12 +21,11 @@
     </div>
   </div>
   <div class="container">
-  <% post.comments.each do |comment| %>
-    <%= render partial: 'comments/comment', locals: { comment: comment, post: post } %>
-    <% comment.children.each do |child_comment| %>
-      <%= render partial: 'comments/comment', locals: { comment: child_comment, post: post } %>
-      <%= recursive_comments(child_comment) %>
-    <% end %>
+  <% if !@show_comments %>
+    <%= recursive_comments(post.comments, @post) %>
+  <% end %>
+  <% if @parent_comment %>
+    <%= render partial: 'comments/comment', locals: {comment: @parent_comment, green: true} %>
   <% end %>
 </div>
 </div>

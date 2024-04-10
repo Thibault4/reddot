@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :set_post, only: %i[ create ]
+  before_action :set_parent, only: %i[ create ]
 
   # GET /comments or /comments.json
   def index
@@ -14,13 +15,14 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+    @show_comments = true
     @post = Post.find(params[:post_id])
-    if params[:parent_comment_id]
-      @parent_comment = Comment.find(params[:parent_comment_id])
+    if params[:comment_id]
+      @parent_comment = Comment.find(params[:comment_id])
       @comment.parent_comment = @parent_comment
     end
   end
-
+  
   # GET /comments/1/edit
   def edit
   end
@@ -30,8 +32,8 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.post = Post.find(params[:post_id])
     @comment.user = User.find(1)
-    if params[:parent_comment_id]
-      @parent_comment = Comment.find(params[:parent_comment_id])
+    if params[:comment_id]
+      @parent_comment = Comment.find(params[:comment_id])
       @comment.parent_comment = @parent_comment
     end
     respond_to do |format|
@@ -76,6 +78,12 @@ class CommentsController < ApplicationController
 
     def set_post
       @post = Post.find(params[:post_id])
+    end
+
+    def set_parent
+      if params[:comment_id]
+        @parent_comment = Comment.find(params[:comment_id])
+      end
     end
     
 
