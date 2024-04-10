@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_100432) do
     t.text "content"
     t.integer "post_id", null: false
     t.integer "user_id", null: false
-    t.integer "parent_comment_id", null: false
+    t.integer "parent_comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_100432) do
     t.string "password_digest"
   end
 
-  add_foreign_key "comments", "parent_comments"
+  add_foreign_key "comments", "comments", column: "parent_comment_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "users"

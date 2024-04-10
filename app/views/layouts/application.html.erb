@@ -30,12 +30,12 @@
               <a class="nav-link text-white" href="/posts">Posts</a>
             </li>
           </ul>
-          <% if logged_in? %>
-          <%= button_to "Déconnexion", logout_path, method: :delete, class: "btn btn-outline-light" %>
-        <% else %>
-          <%= link_to "Connexion", new_session_path, class: "btn btn-outline-light" %>
-        <% end %>
-        
+        <div class="position-absolute end-0 translate-middle-connect" role="search">
+            <% if logged_in? %>
+              <%= link_to "Déconnexion", logout_path, method: "delete", class: "btn btn-outline-primary btn-sm" %>
+            <% else %>
+              <%= link_to "Connexion", new_session_path, class: "btn btn-primary btn-sm" %>
+            <% end %>
         </div>
       </div>
     </nav>
