@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  get 'registrations/new'
-  get 'registrations/create'
+  root 'home#index'
   resources :registrations, only: [:new, :create]
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create]
   resources :posts
   resources :comments
   resources :users
-  get '/' => "home#index"
+  delete 'logout' => 'sessions#destroy', as: :logout
   get "up" => "rails/health#show", as: :rails_health_check
 end

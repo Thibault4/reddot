@@ -1,6 +1,16 @@
 <h1>Inscription</h1>
 
-<%= form_with(url: registrations_path, method: "post") do |form| %>
+<% if @user.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @user) do |form| %>
   <div>
     <%= form.label :username, style: "display: block" %>
     <%= form.text_field :username %>
@@ -27,6 +37,8 @@
   </div>
 
   <div>
-    <%= form.submit "Créer un compte" %>
+    <%= form.submit "S'inscrire" %>
   </div>
 <% end %>
+
+<p>Déjà inscrit ? <%= link_to "Se connecter", new_session_path %></p>
