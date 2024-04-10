@@ -45,3 +45,6 @@
 [class^="bi-"]::before, [class*=" bi-"]::before {
     line-height: 1.2;
 }
+.translate-middle {
+    transform: translate(-15%, -12%) !important;
+}
