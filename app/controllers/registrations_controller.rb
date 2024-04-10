@@ -7,7 +7,6 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      session[:user_id] = @user.id
       redirect_to root_path, notice: "Inscription réussie !"
     else
       render :new, status: :unprocessable_entity

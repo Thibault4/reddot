@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
-  resources :registrations, only: [:new, :create]
+  resources :registrations
   resources :sessions, only: [:new, :create]
   resources :posts
   resources :comments
