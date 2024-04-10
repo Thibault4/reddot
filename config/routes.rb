@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   resources :registrations
   resources :sessions, only: [:new, :create]
   resources :posts do
-    resources :comments, only: [:new, :create]
+    resources :comments do
+      get ':parent_comment_id/add', to: 'comments#new', as: :add_child_comment
+    end
   end
   resources :comments
   resources :users

@@ -1,5 +1,5 @@
 <div class="card" id="<%= dom_id post %>">
-  <h5 class="card-header"><i class="bi bi-person-circle"></i>&nbsp;<%= User.find(post.user_id).username %><span class="text-muted" style="--bs-text-opacity: .5;">&nbsp;•&nbsp;<%= time_ago_in_words(User.find(post.user_id).created_at) %> ago</span></h5>
+  <h5 class="card-header"><i class="bi bi-person-circle"></i>&nbsp;<%= User.find(post.user_id).username %><span class="text-muted" style="--bs-text-opacity: .5;">&nbsp;•&nbsp;<%= time_ago_in_words(Post.find(post.user_id).created_at) %> ago</span></h5>
   <div class="card-body">
     <h5 class="card-title"><%= post.title %></h5>
     <p class="card-text"><%= post.content %></p>
@@ -18,4 +18,13 @@
         <%= post.downvotes %></button>
     </div>
   </div>
+  <div class="container">
+  <% post.comments.each do |comment| %>
+    <%= render partial: 'comments/comment', locals: { comment: comment, post: post } %>
+    <% comment.children.each do |child_comment| %>
+      <%= render partial: 'comments/comment', locals: { comment: child_comment, post: post } %>
+      <%= recursive_comments(child_comment) %>
+    <% end %>
+  <% end %>
+</div>
 </div>

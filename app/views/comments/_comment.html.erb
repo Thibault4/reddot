@@ -1,22 +1,13 @@
 <div id="<%= dom_id comment %>">
-  <p>
-    <strong>Content:</strong>
-    <%= comment.content %>
-  </p>
-
-  <p>
-    <strong>Post:</strong>
-    <%= comment.post_id %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= comment.user_id %>
-  </p>
-
-  <p>
-    <strong>Parent comment:</strong>
-    <%= comment.parent_comment_id %>
-  </p>
-
+  <div class="card">
+  <h5 class="card-header"><i class="bi bi-person-circle"></i>&nbsp;<%= User.find(comment.user_id).username %><span class="text-muted" style="--bs-text-opacity: .5;">&nbsp;•&nbsp;<%= time_ago_in_words(User.find(comment.user_id).created_at) %> ago</span></h5>
+  <div class="card-body">
+    <p class="card-text"><%= comment.content %></p><%= comment.parent_comment_id %>
+    <% if comment.parent_comment.nil? %>
+      <%= link_to post_comment_add_child_comment_path(post, comment), class: "btn btn-outline-primary" do %>
+        <i class="bi bi-chat-dots"></i> Répondre
+      <% end %>
+    <% end %>
+  </div>
+</div>
 </div>

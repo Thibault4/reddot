@@ -14,6 +14,11 @@ class CommentsController < ApplicationController
   # GET /comments/new
   def new
     @comment = Comment.new
+    @post = Post.find(params[:post_id])
+    if params[:parent_comment_id]
+      @parent_comment = Comment.find(params[:parent_comment_id])
+      @comment.parent_comment = @parent_comment
+    end
   end
 
   # GET /comments/1/edit
@@ -22,8 +27,13 @@ class CommentsController < ApplicationController
 
   # POST /comments or /comments.json
   def create
-    @comment = @post.comments.build(comment_params)
-    @comment.user_id = 1
+    @comment = Comment.new(comment_params)
+    @comment.post = Post.find(params[:post_id])
+    @comment.user = User.find(1)
+    if params[:parent_comment_id]
+      @parent_comment = Comment.find(params[:parent_comment_id])
+      @comment.parent_comment = @parent_comment
+    end
     respond_to do |format|
       if @comment.save
         format.html { redirect_to post_path(@post), notice: "Comment was successfully created." }
@@ -67,6 +77,7 @@ class CommentsController < ApplicationController
     def set_post
       @post = Post.find(params[:post_id])
     end
+    
 
     # Only allow a list of trusted parameters through.
     def comment_params
