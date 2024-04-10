@@ -33,6 +33,13 @@
               <a class="nav-link text-white" href="/posts">Posts</a>
             </li>
           </ul>
+          <div class="position-absolute end-0 translate-middle-connect" role="search">
+            <% if current_user %>
+              <%= link_to "Déconnexion", sessions_path, method: "delete", class: "btn btn-outline-primary btn-sm" %>
+            <% else %>
+              <%= link_to "Connexion", new_session_path, class: "btn btn-primary btn-sm" %>
+            <% end %>
+          </form>
         </div>
       </div>
     </nav>
@@ -44,8 +51,4 @@
 </html>
 
 
-<% if current_user %>
-  <%= link_to "Déconnexion", sessions_path, method: "delete" %>
-<% else %>
-  <%= link_to "Connexion", new_session_path %>
-<% end %>
+
