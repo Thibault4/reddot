@@ -13,3 +13,21 @@
  *= require_tree .
  *= require_self
  */
+
+.bg-app{
+    background-color: #FD0016;
+}
+.m-plus{
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+.navbar{
+    z-index:10000;
+}
+.offcanvas-header{
+    margin-top:12%
+}
+.container{
+    border:5px solid black 
+}
