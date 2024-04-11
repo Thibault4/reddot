@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
   before_action :set_post, only: %i[ create ]
   before_action :set_parent, only: %i[ create ]
-
+  before_action :require_login
   # GET /comments or /comments.json
   def index
     @comments = Comment.all
@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.post = Post.find(params[:post_id])
-    @comment.user = User.find(1)
+    @comment.user = User.find(current_user.id)
     if params[:comment_id]
       @parent_comment = Comment.find(params[:comment_id])
       @comment.parent_comment = @parent_comment
@@ -90,5 +90,13 @@ class CommentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def comment_params
       params.require(:comment).permit(:content, :post_id, :user_id, :parent_comment_id)
+    end
+
+    private
+    
+    def require_login
+      unless logged_in?
+        redirect_to new_session_path, alert: "You must be logged in to access this page."
+      end
     end
 end

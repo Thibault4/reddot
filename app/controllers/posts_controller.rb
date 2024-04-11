@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   include CommentsHelper
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :require_login
 
   # GET /posts or /posts.json
   def index
@@ -25,7 +26,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.upvotes = 0
     @post.downvotes = 0
-    @post.user_id = 1
+    @post.user_id = current_user.id
 
     respond_to do |format|
       if @post.save
@@ -50,6 +51,8 @@ class PostsController < ApplicationController
       end
     end
   end
+  
+
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
@@ -70,5 +73,13 @@ class PostsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :content, :upvotes, :downvotes, :user_id)
+    end
+
+    private
+
+    def require_login
+      unless logged_in?
+        redirect_to new_session_path, alert: "You must be logged in to access this page."
+      end
     end
 end

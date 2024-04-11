@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, only: [:new, :create]
+  before_action :correct_user, only: [:edit, :update]
 
   # GET /users or /users.json
   def index
@@ -8,6 +10,11 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @user = User.find_by(id: params[:id])
+    unless @user
+      flash[:alert] = "User not found"
+      redirect_to users_path
+    end
   end
 
   # GET /users/new
@@ -61,6 +68,12 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    # Vérifie que l'utilisateur actuellement connecté est le même que celui dans l'URL
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user == @user
     end
 
     # Only allow a list of trusted parameters through.
