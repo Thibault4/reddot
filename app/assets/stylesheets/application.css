@@ -15,7 +15,7 @@
  */
 
 .bg-app{
-    background-color: #FD0016;
+    background-color: #fdbec4;
 }
 .card{
     margin: 5px 0px;
@@ -51,3 +51,66 @@
 .translate-middle-connect {
     transform: translate(-50%, 0%) !important;
 }
+
+/* app/assets/stylesheets/application.css */
+
+/* Style général */
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .product {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .product h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .product p {
+    margin-bottom: 5px;
+  }
+
+  .btnerror {
+    background-color: rgb(255, 109, 109);
+    color: white;
+  }
+
+  .btnerror:hover {
+    background-color: rgb(255, 170, 170);
+    color: white;
+  }
+  
+  /* Liens */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Boutons */
+  .button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #ff7171;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
