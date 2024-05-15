@@ -1,5 +1,11 @@
+
 <div class="container mt-3">
-  <%= form_with(url: products_path, method: "get", local: true) do %>
+<% if logged_in? %>
+  <h1>Welcome back on railskuten, <%= current_user.name %>!</h1>
+<% else %>
+  <h1>Welcome on railskuten!</h1>
+<% end %>
+<%= form_with(url: products_path, method: "get", local: true) do %>
     <div class="input-group mb-3">
       <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Search for products..." %>
       <div class="input-group-append">
@@ -17,21 +23,17 @@
             <p><%= product.description %></p>
             <p>Price: <%= number_to_currency(product.price) %></p>
             <p>Stock: <%= product.stock %></p>
-            <% if current_user && current_user.seller %>
-              <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-primary' %> |
-              <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-            <% else %>
-              <%= link_to 'Buy', product_path(product), class: 'btn btnerror' %>
+            <% if current_user %>
+              <% if current_user.id == Seller.find_by(id:product.seller_id).user_id %>
+                <%= link_to 'Edit', edit_product_path(product), class: 'btn btn-primary' %> |
+                <%= link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+              <% else %>
+                <%= link_to 'Buy', product_path(product), class: 'btn btnerror' %>
+              <% end %>
             <% end %>
           </div>
         </div>
       <% end %>
-    </div>
-  <% end %>
-
-  <% if current_user && current_user.seller %>
-    <div class="actions">
-      <%= link_to 'New Product', new_product_path, class: 'btn btn-primary' %>
     </div>
   <% end %>
 </div>

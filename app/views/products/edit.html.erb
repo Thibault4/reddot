@@ -1,2 +1,4 @@
-<h1>Products#edit</h1>
-<p>Find me in app/views/products/edit.html.erb</p>
+<div class="container">
+  <%= link_to "Back to products", products_path, class:"btn btn-primary" %>
+</div>
+<%= render "form", product: @product %>

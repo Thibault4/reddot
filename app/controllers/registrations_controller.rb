@@ -5,9 +5,11 @@ class RegistrationsController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.build_buyer
     if params[:is_seller] == "on"
       @user.build_seller
     end
+
 
     if @user.save
       redirect_to root_path, notice: "Inscription réussie !"
@@ -20,7 +22,7 @@ class RegistrationsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :email, :password, :password_confirmation, :is_seller)
+    params.require(:user).permit(:username, :name, :email, :password, :password_confirmation)
   end
   
 end
